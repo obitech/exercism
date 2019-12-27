@@ -22,7 +22,7 @@ const (
 // isTriangle checks if a given three sides, a valid triangle exists.
 func isTriangle(a, b, c float64) bool {
 	for _, v := range []float64{a, b, c} {
-		if math.IsNaN(v) || v == math.Inf(1) || v == math.Inf(-1) {
+		if math.IsNaN(v) || math.IsInf(v, 0) {
 			return false
 		}
 	}
@@ -40,7 +40,7 @@ func KindFromSides(a, b, c float64) Kind {
 	if a == b && b == c {
 		return Equ
 	}
-	if (a == b && b != c) || (a == c && b != c) || (b == c && a != c) {
+	if (a == b) || (a == c) || (b == c) {
 		return Iso
 	}
 	return Sca
