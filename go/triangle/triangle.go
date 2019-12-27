@@ -1,7 +1,9 @@
 // Package triangle provides a function to determine the kind of a triangle.
 package triangle
 
-import "math"
+import (
+	"math"
+)
 
 // Kind represents a kind of triangle.
 type Kind int
@@ -20,7 +22,7 @@ const (
 // isTriangle checks if a given three sides, a valid triangle exists.
 func isTriangle(a, b, c float64) bool {
 	for _, v := range []float64{a, b, c} {
-		if v == math.NaN() || v == math.Inf(1) || v == math.Inf(-1) {
+		if math.IsNaN(v) || v == math.Inf(1) || v == math.Inf(-1) {
 			return false
 		}
 	}
