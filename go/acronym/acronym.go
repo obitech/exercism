@@ -9,26 +9,14 @@ import (
 	"strings"
 )
 
-// Abbreviate returns the acronym for a given string
+// Abbreviate returns the acronym for a given string.
 func Abbreviate(s string) string {
-	if s == "" {
-		return s
-	}
+	s = strings.Replace(s, "_", "", -1)
+	s = strings.Replace(s, "-", " ", -1)
 	var out string
 	t := strings.Split(s, " ")
 	for _, c := range t {
 		if c != "" {
-			c = strings.Trim(c, "_")
-			if strings.Contains(c, "-") {
-				sub := strings.Split(c, "-")
-				for _, sc := range sub {
-					if len(sc) == 0 {
-						continue
-					}
-					out += strings.ToUpper(string(sc[0]))
-				}
-				continue
-			}
 			out += strings.ToUpper(string(c[0]))
 		}
 	}
