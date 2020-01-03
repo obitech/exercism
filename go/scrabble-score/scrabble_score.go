@@ -1,12 +1,10 @@
 package scrabble
 
-import (
-	"strings"
-)
+import "unicode"
 
 // Mapping maps letters to a point value.
 type Mapping struct {
-	Letters []string
+	Letters []rune
 	Points  int
 }
 
@@ -15,39 +13,39 @@ type Scale []Mapping
 
 var s = Scale{
 	Mapping{
-		Letters: []string{"A", "E", "I", "O", "U", "L", "N", "R", "S", "T"},
+		Letters: []rune{'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'},
 		Points:  1,
 	},
 	Mapping{
-		Letters: []string{"D", "G"},
+		Letters: []rune{'D', 'G'},
 		Points:  2,
 	},
 	Mapping{
-		Letters: []string{"B", "C", "M", "P"},
+		Letters: []rune{'B', 'C', 'M', 'P'},
 		Points:  3,
 	},
 	Mapping{
-		Letters: []string{"F", "H", "V", "W", "Y"},
+		Letters: []rune{'F', 'H', 'V', 'W', 'Y'},
 		Points:  4,
 	},
 	Mapping{
-		Letters: []string{"K"},
+		Letters: []rune{'K'},
 		Points:  5,
 	},
 	Mapping{
-		Letters: []string{"J", "X"},
+		Letters: []rune{'J', 'X'},
 		Points:  8,
 	},
 	Mapping{
-		Letters: []string{"Q", "Z"},
+		Letters: []rune{'Q', 'Z'},
 		Points:  10,
 	},
 }
 
 // BuildGrading constructs a map that can be used to query the amount of points
 // for a given letter.
-func (s Scale) BuildGrading() map[string]int {
-	out := make(map[string]int)
+func (s Scale) BuildGrading() map[rune]int {
+	out := make(map[rune]int)
 	for _, mapping := range s {
 		for _, letter := range mapping.Letters {
 			out[letter] = mapping.Points
@@ -66,7 +64,7 @@ func Score(word string) int {
 	}
 
 	for _, letter := range word {
-		score += grading[strings.ToUpper(string(letter))]
+		score += grading[unicode.ToUpper(letter)]
 	}
 	return score
 }
