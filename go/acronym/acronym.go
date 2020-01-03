@@ -5,11 +5,32 @@
 // https://golang.org/doc/effective_go.html#commentary
 package acronym
 
-// Abbreviate should have a comment documenting it.
+import (
+	"strings"
+)
+
+// Abbreviate returns the acronym for a given string
 func Abbreviate(s string) string {
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
-	return ""
+	if s == "" {
+		return s
+	}
+	var out string
+	t := strings.Split(s, " ")
+	for _, c := range t {
+		if c != "" {
+			c = strings.Trim(c, "_")
+			if strings.Contains(c, "-") {
+				sub := strings.Split(c, "-")
+				for _, sc := range sub {
+					if len(sc) == 0 {
+						continue
+					}
+					out += strings.ToUpper(string(sc[0]))
+				}
+				continue
+			}
+			out += strings.ToUpper(string(c[0]))
+		}
+	}
+	return out
 }
